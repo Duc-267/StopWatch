@@ -14,8 +14,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="00:00:00"
-        android:textSize="56sp"
         android:textAppearance="@android:style/TextAppearance.Large"
+        android:textSize="56sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -24,48 +24,37 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.454" />
 
-    <Button
-        android:id="@+id/btnStart"
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnStartStop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="START"
-        android:textSize="23sp"
-        android:textColor="#001e1d"
         android:backgroundTint="#f9bc60"
+        android:text="START"
+        android:textColor="#001e1d"
+        android:textSize="23sp"
+        app:icon="@drawable/ic_baseline_play_arrow_24"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btnStop"
+        app:layout_constraintEnd_toStartOf="@+id/btnReset"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/timeView"
         app:layout_constraintVertical_bias="0.275" />
 
-    <Button
-        android:id="@+id/btnStop"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="#001e1d"
-        android:text="STOP"
-        android:textSize="23sp"
-        android:backgroundTint="#f9bc60"
-        app:layout_constraintBottom_toBottomOf="@+id/btnStart"
-        app:layout_constraintEnd_toStartOf="@+id/btnRestart"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/btnStart"
-        app:layout_constraintTop_toTopOf="@+id/btnStart" />
 
-    <Button
-        android:id="@+id/btnRestart"
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnReset"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="RESTART"
-        android:textSize="23sp"
-        android:textColor="#001e1d"
         android:backgroundTint="#f9bc60"
-        app:layout_constraintBottom_toBottomOf="@+id/btnStop"
+        android:text="RESTET"
+        android:textColor="#001e1d"
+        android:textSize="23sp"
+        app:icon="@drawable/ic_restart"
+        app:layout_constraintBottom_toBottomOf="@+id/btnStartStop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/btnStop"
-        app:layout_constraintTop_toTopOf="@+id/btnStop" />
+        app:layout_constraintStart_toEndOf="@+id/btnStartStop"
+        app:layout_constraintTop_toTopOf="@+id/btnStartStop" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
