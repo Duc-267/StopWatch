@@ -11,7 +11,7 @@ import com.example.stopwatch.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
     private var isRunning = false
     private lateinit var binding : ActivityMainBinding
-    private var time = 0.0
+    private var time = -1.0
     private lateinit var intentService : Intent
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,15 +51,15 @@ class MainActivity : AppCompatActivity() {
 
     private  val updateTime:BroadcastReceiver = object :BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
-            time = intent.getDoubleExtra("EXTRA_TIME",0.0)
+            time = intent.getDoubleExtra("EXTRA_TIME",-1.0)
             binding.timeView.text = getStingOfTime(time)
         }
     }
 
     private fun resetTimer(){
         stopTimer()
-        time = 0.0
-        binding.timeView.text = getStingOfTime(time)
+        time = -1.0
+        binding.timeView.text = "00:00:00"
     }
 
     private fun getStingOfTime(time: Double): String{

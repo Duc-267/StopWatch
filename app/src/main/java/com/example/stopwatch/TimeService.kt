@@ -8,14 +8,10 @@ import java.util.*
 
 class TimeService: Service() {
     private val timer = Timer()
-//    init {
-//        Toast.makeText(this, "Start Stopwatch", Toast.LENGTH_SHORT).show()
-//    }
-
     override fun onBind(p0: Intent?): IBinder? = null
 
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
-        val time = intent.getDoubleExtra("EXTRA_TIME", 0.0)
+        val time = intent.getDoubleExtra("EXTRA_TIME", -1.0)
         timer.scheduleAtFixedRate(TimeTask(time), 0, 1000)
         return START_NOT_STICKY
     }
