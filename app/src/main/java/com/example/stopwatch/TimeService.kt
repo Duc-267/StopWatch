@@ -8,9 +8,9 @@ import java.util.*
 
 class TimeService: Service() {
     private val timer = Timer()
-    init {
-        Toast.makeText(this, "Start Stopwatch", Toast.LENGTH_SHORT).show()
-    }
+//    init {
+//        Toast.makeText(this, "Start Stopwatch", Toast.LENGTH_SHORT).show()
+//    }
 
     override fun onBind(p0: Intent?): IBinder? = null
 
@@ -22,7 +22,7 @@ class TimeService: Service() {
 
     private inner class TimeTask(private var time: Double):TimerTask(){
         override fun run() {
-            val intent = Intent("timeUpdate")
+            val intent = Intent("updateTime")
             time++
             intent.putExtra("EXTRA_TIME", time)
             sendBroadcast(intent)

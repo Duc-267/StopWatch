@@ -12,18 +12,20 @@ class MainActivity : AppCompatActivity() {
     private var isRunning = false
     private lateinit var binding : ActivityMainBinding
     private var time = 0.0
-    private val intentService = Intent(this, TimeService::class.java)
+    private lateinit var intentService : Intent
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         binding.btnStartStop.setOnClickListener {
             timerStartStop()
         }
         binding.btnReset.setOnClickListener {
             resetTimer()
         }
-        registerReceiver(updateTime(), IntentFilter("updateTime") )
+        intentService = Intent(this, TimeService::class.java)
+        registerReceiver(updateTime, IntentFilter("updateTime") )
     }
     private fun timerStartStop(){
         if(isRunning){
@@ -43,21 +45,21 @@ class MainActivity : AppCompatActivity() {
     private fun stopTimer(){
         stopService(intentService)
         isRunning = false
-        time = 0.0
         binding.btnStartStop.text = "Start"
         binding.btnStartStop.icon =  getDrawable(R.drawable.ic_baseline_play_arrow_24)
     }
 
-    private  fun updateTime():BroadcastReceiver = object :BroadcastReceiver() {
+    private  val updateTime:BroadcastReceiver = object :BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
             time = intent.getDoubleExtra("EXTRA_TIME",0.0)
             binding.timeView.text = getStingOfTime(time)
         }
-
     }
+
     private fun resetTimer(){
         stopTimer()
-        binding.timeView.text = getStingOfTime(0.0)
+        time = 0.0
+        binding.timeView.text = getStingOfTime(time)
     }
 
     private fun getStingOfTime(time: Double): String{
