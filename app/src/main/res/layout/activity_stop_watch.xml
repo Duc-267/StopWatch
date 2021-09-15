@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:background="#eff0f3"
+    android:background="#abd1c6"
     android:padding="16dp"
     tools:context=".StopWatch">
     <TextView
@@ -15,6 +15,7 @@
         android:text="00:00:00"
         android:textAppearance="@android:style/TextAppearance.Large"
         android:textSize="56sp"
+        android:textColor="#001e1d"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
