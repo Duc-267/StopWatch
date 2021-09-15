@@ -3,6 +3,7 @@ package com.example.stopwatch
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Window
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -33,6 +34,7 @@ class MainActivity : AppCompatActivity() {
     }
     private fun setCurrentFragment(fragment: Fragment){
         supportFragmentManager.beginTransaction().apply {
+            Log.d("Fragment", "Clicked")
             replace(R.id.flFragment, fragment)
             commit()
         }
