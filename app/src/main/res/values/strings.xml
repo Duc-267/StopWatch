@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">StopWatch</string>
     <string-array name="hours">
+        <item> 0 </item>
         <item> 1 </item>
         <item> 2 </item>
         <item> 3 </item>
@@ -26,6 +27,7 @@
         <item> 23 </item>
     </string-array>
     <string-array name="minutes">
+        <item> 0 </item>
         <item> 1 </item>
         <item> 2 </item>
         <item> 3 </item>
@@ -87,6 +89,7 @@
         <item> 59 </item>
     </string-array>
     <string-array name="second">
+        <item> 0 </item>
         <item> 1 </item>
         <item> 2 </item>
         <item> 3 </item>

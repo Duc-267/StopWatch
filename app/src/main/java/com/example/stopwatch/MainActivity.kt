@@ -35,9 +35,10 @@ class MainActivity : AppCompatActivity() {
             result = bundle.getBoolean("verify")
             if(result){
                 setCurrentFragment(timerFragment)
+            } else {
+                setCurrentFragment(timerFragment)
             }
         }
-        
     }
     private fun setCurrentFragment(fragment: Fragment){
         supportFragmentManager.beginTransaction().apply {

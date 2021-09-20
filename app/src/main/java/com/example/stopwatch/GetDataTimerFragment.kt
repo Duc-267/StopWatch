@@ -164,9 +164,8 @@ class GetDataTimerFragment:Fragment(R.layout.activity_timer_get_data) {
         binding.btnStartTimer.setOnClickListener {
             var verify = false
             if(getHour != listHour[0] && getMinute != listMinute[0] && getSecond != listSecond[0]){
-                //setFragmentResult("requestKey", bundleOf("hour" to getHour.toDouble()))
-                //setFragmentResult("requestKey", bundleOf("minute" to getMinute.toDouble()))
-                setFragmentResult("requestKey", bundleOf("second" to getSecond.toDouble()))
+                val time = getHour.toDouble() * 3600 + getMinute.toDouble() * 60 + getSecond.toDouble()
+                setFragmentResult("requestKey", bundleOf("time" to time))
                 verify = true
                 setFragmentResult("requestKeyActivity", bundleOf("verify" to verify))
             } else {

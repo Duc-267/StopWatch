@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,8 +16,12 @@ import com.example.stopwatch.databinding.ActivityStopWatchBinding
 class StopWatchFragment:Fragment(R.layout.activity_stop_watch) {
     private var isRunning = false
     private lateinit var binding : ActivityStopWatchBinding
-    private var time = -1.0
+    private var time = 10.0
     private lateinit var intentService : Intent
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        time = 4.0
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -25,12 +30,15 @@ class StopWatchFragment:Fragment(R.layout.activity_stop_watch) {
     ): View? {
         binding = ActivityStopWatchBinding.inflate(inflater,container,false)
         binding.btnStartStop.setOnClickListener {
+            Log.d ("time", "$time bf")
             timerStartStop()
+            Log.d ("time", "$time at")
         }
         binding.btnReset.setOnClickListener {
             resetTimer()
         }
         intentService = Intent(requireContext(), TimeService::class.java)
+        Log.d("time", "intentService - $time")
         requireActivity().registerReceiver(updateTime, IntentFilter("updateTime") )
         return binding.root
     }
@@ -43,8 +51,10 @@ class StopWatchFragment:Fragment(R.layout.activity_stop_watch) {
         }
     }
     private fun startTimer(){
+        Log.d("time", "start 1 - $time")
         intentService.putExtra("EXTRA_TIME", time)
         requireActivity().startService(intentService)
+        Log.d("time", "start 2 - $time")
         binding.btnStartStop.text = "Stop"
         binding.btnStartStop.icon =  AppCompatResources.getDrawable(requireContext(), R.drawable.ic_baseline_stop_24)
         isRunning = true
