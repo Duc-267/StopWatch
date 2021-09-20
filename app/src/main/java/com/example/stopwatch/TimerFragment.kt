@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
@@ -41,8 +42,7 @@ class TimerFragment : Fragment(R.layout.activity_timer) {
         }
         binding.btnCancel.setOnClickListener {
             isRunning = false
-            val verify = false
-            setFragmentResult("requestKeyActivity", bundleOf("verify" to verify))
+            setFragmentResult("requestKeyActivity", bundleOf("verify" to false))
         }
         intentService = Intent(requireContext(), TimerCountDownService::class.java)
         requireContext().registerReceiver(updateTime, IntentFilter(TimerCountDownService.UPDATE_TIME))
@@ -65,12 +65,15 @@ class TimerFragment : Fragment(R.layout.activity_timer) {
     }
 
     private fun resumeTimer(){
-        intentService.putExtra(TimerCountDownService.EXTRA_TIME, time)
-        requireActivity().startService(intentService)
-
-        binding.btnPauseResume.text = "Pause"
-        binding.btnPauseResume.icon =  AppCompatResources.getDrawable(requireContext(), R.drawable.ic_baseline_stop_24)
-        isRunning = true
+        if(time <= -1.0){
+            Toast.makeText(requireContext().applicationContext, "Time's up!!!", Toast.LENGTH_SHORT).show()
+        } else {
+            intentService.putExtra(TimerCountDownService.EXTRA_TIME, time)
+            requireActivity().startService(intentService)
+            binding.btnPauseResume.text = "Pause"
+            binding.btnPauseResume.icon = AppCompatResources.getDrawable(requireContext(), R.drawable.ic_baseline_stop_24)
+            isRunning = true
+        }
     }
 
     private fun pauseTimer(){
@@ -90,7 +93,12 @@ class TimerFragment : Fragment(R.layout.activity_timer) {
     private val updateTime = object:BroadcastReceiver(){
         override fun onReceive(context: Context?, intent: Intent) {
             time = intent.getDoubleExtra(TimerCountDownService.EXTRA_TIME, -1.0)
-            binding.timeViewTimer.text = getStingOfTime(time)
+            if(time == -1.0){
+                pauseTimer()
+                Toast.makeText(requireContext().applicationContext, "Time's up!!!", Toast.LENGTH_SHORT).show()
+            } else {
+                binding.timeViewTimer.text = getStingOfTime(time)
+            }
         }
     }
     private fun makeTimeString(hour: Int, min: Int, sec: Int): String =

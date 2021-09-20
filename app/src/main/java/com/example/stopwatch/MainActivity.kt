@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
             if(result){
                 setCurrentFragment(timerFragment)
             } else {
-                setCurrentFragment(timerFragment)
+                setCurrentFragment(timerGetDataFragment)
             }
         }
     }

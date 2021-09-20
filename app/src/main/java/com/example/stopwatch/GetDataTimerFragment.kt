@@ -58,8 +58,8 @@ class GetDataTimerFragment:Fragment(R.layout.activity_timer_get_data) {
             }
         }
         binding.spHour.adapter = hourAdapter
-        val listMinuteSecond = requireActivity().resources.getStringArray(R.array.minutes).toMutableList()
-        val listMinute = listMinuteSecond
+        val listMinute = requireActivity().resources.getStringArray(R.array.minutes).toMutableList()
+        val listSecond = requireActivity().resources.getStringArray(R.array.minutes).toMutableList()
         listMinute.add(0, "Select Minute")
         val minuteAdapter:ArrayAdapter<String> = object: ArrayAdapter<String>(requireContext().applicationContext
             ,R.layout.support_simple_spinner_dropdown_item,listMinute){
@@ -92,7 +92,6 @@ class GetDataTimerFragment:Fragment(R.layout.activity_timer_get_data) {
             }
         }
         binding.spMinute.adapter = minuteAdapter
-        val listSecond= listMinuteSecond
         listSecond.add(0, "Select Second")
         val secondAdapter:ArrayAdapter<String> = object: ArrayAdapter<String>(requireContext().applicationContext
             ,R.layout.support_simple_spinner_dropdown_item,listSecond){
@@ -162,15 +161,14 @@ class GetDataTimerFragment:Fragment(R.layout.activity_timer_get_data) {
             }
         }
         binding.btnStartTimer.setOnClickListener {
-            var verify = false
-            if(getHour != listHour[0] && getMinute != listMinute[0] && getSecond != listSecond[0]){
+            if((getHour != listHour[0] && getMinute != listMinute[0] && getSecond != listSecond[0])
+                && (getHour != listHour[1] || getMinute != listMinute[1] || getSecond != listSecond[1]) ){
                 val time = getHour.toDouble() * 3600 + getMinute.toDouble() * 60 + getSecond.toDouble()
                 setFragmentResult("requestKey", bundleOf("time" to time))
-                verify = true
-                setFragmentResult("requestKeyActivity", bundleOf("verify" to verify))
+                setFragmentResult("requestKeyActivity", bundleOf("verify" to true))
             } else {
                 Toast.makeText(requireContext().applicationContext,"Please specify time!", Toast.LENGTH_SHORT ).show()
-                setFragmentResult("requestKeyActivity", bundleOf("verify" to verify))
+                setFragmentResult("requestKeyActivity", bundleOf("verify" to false))
             }
         }
         return binding.root
