@@ -13,8 +13,8 @@
         android:layout_height="wrap_content"
         android:text="00:00:00"
         android:textAppearance="@android:style/TextAppearance.Large"
-        android:textSize="56sp"
         android:textColor="#001e1d"
+        android:textSize="40sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -29,15 +29,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="#f9bc60"
-        android:text="START"
+        android:text="PAUSE"
         android:textColor="#001e1d"
-        app:icon="@drawable/ic_baseline_play_arrow_24"
+        app:icon="@drawable/ic_baseline_stop_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btnCancel"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/timeViewTimer"
-        app:layout_constraintVertical_bias="0.15" />
+        app:layout_constraintVertical_bias="0.416" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnCancel"
@@ -53,6 +53,18 @@
         app:layout_constraintStart_toEndOf="@+id/btnPauseResume"
         app:layout_constraintTop_toTopOf="@+id/btnPauseResume" />
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:progressDrawable="@drawable/circle"
+        android:layout_width="match_parent"
+        android:layout_height="747dp"
+        android:indeterminateOnly="false"
+        android:progress="100"
+        app:layout_constraintBottom_toTopOf="@+id/btnPauseResume"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

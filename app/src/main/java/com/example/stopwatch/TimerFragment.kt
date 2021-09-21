@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -18,6 +17,9 @@ import androidx.fragment.app.setFragmentResultListener
 import com.example.stopwatch.databinding.ActivityTimerBinding
 
 class TimerFragment : Fragment(R.layout.activity_timer) {
+    private var fullProportion = 100.0
+    private var proportion:Double = 0.0
+    private var progr = 0
     private var isRunning = true
     private lateinit var binding : ActivityTimerBinding
     private var time:Double = 0.0
@@ -25,10 +27,10 @@ class TimerFragment : Fragment(R.layout.activity_timer) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         setFragmentResultListener("requestKey") { _, bundle ->
             time = bundle.getDouble("time")
             binding.timeViewTimer.text = getStingOfTime(time)
+            proportion = fullProportion / time
         }
     }
 
@@ -37,12 +39,16 @@ class TimerFragment : Fragment(R.layout.activity_timer) {
         savedInstanceState: Bundle?
     ): View? {
         binding = ActivityTimerBinding.inflate(inflater,container,false)
+        binding.progressBar.progress = progr
         binding.btnPauseResume.setOnClickListener {
             timerPauseResume()
         }
         binding.btnCancel.setOnClickListener {
+            pauseTimer()
             isRunning = false
             setFragmentResult("requestKeyActivity", bundleOf("verify" to false))
+            binding.progressBar.progress = 0
+            progr = 0
         }
         intentService = Intent(requireContext(), TimerCountDownService::class.java)
         requireContext().registerReceiver(updateTime, IntentFilter(TimerCountDownService.UPDATE_TIME))
@@ -93,9 +99,13 @@ class TimerFragment : Fragment(R.layout.activity_timer) {
     private val updateTime = object:BroadcastReceiver(){
         override fun onReceive(context: Context?, intent: Intent) {
             time = intent.getDoubleExtra(TimerCountDownService.EXTRA_TIME, -1.0)
+            progr += proportion.toInt()
+            binding.progressBar.progress = progr
             if(time == -1.0){
                 pauseTimer()
                 Toast.makeText(requireContext().applicationContext, "Time's up!!!", Toast.LENGTH_SHORT).show()
+                binding.progressBar.progress = 0
+                progr = 0
             } else {
                 binding.timeViewTimer.text = getStingOfTime(time)
             }
