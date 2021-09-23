@@ -18,10 +18,7 @@ class StopWatchFragment:Fragment(R.layout.activity_stop_watch) {
     private lateinit var binding : ActivityStopWatchBinding
     private var time = 10.0
     private lateinit var intentService : Intent
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        time = 4.0
-    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater,

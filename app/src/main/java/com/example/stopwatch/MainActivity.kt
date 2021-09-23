@@ -11,6 +11,7 @@ import java.util.*
 class MainActivity : AppCompatActivity() {
     private lateinit var binding : ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
+        var result: Boolean = false
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -22,15 +23,6 @@ class MainActivity : AppCompatActivity() {
         val window = getWindow()
         window.statusBarColor = ContextCompat.getColor(this, R.color.teal_700)
 
-
-        binding.bottomNavigationView.setOnItemSelectedListener {
-            when (it.itemId) {
-                R.id.bottom_nav_clock -> setCurrentFragment(stopwatchFragment)
-                R.id.bottom_nav_timer -> setCurrentFragment(timerGetDataFragment)
-            }
-            return@setOnItemSelectedListener true
-        }
-        var result: Boolean
         supportFragmentManager.setFragmentResultListener("requestKeyActivity", this){ _, bundle ->
             result = bundle.getBoolean("verify")
             if(result){
@@ -39,6 +31,22 @@ class MainActivity : AppCompatActivity() {
                 setCurrentFragment(timerGetDataFragment)
             }
         }
+
+        binding.bottomNavigationView.setOnItemSelectedListener {
+            when (it.itemId) {
+                R.id.bottom_nav_clock -> setCurrentFragment(stopwatchFragment)
+                R.id.bottom_nav_timer -> {
+                    if(result == false) {
+                        setCurrentFragment(timerGetDataFragment)
+                    } else {
+                        setCurrentFragment(timerFragment)
+                    }
+                }
+            }
+            return@setOnItemSelectedListener true
+        }
+
+
     }
     private fun setCurrentFragment(fragment: Fragment){
         supportFragmentManager.beginTransaction().apply {
