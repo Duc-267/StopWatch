@@ -11,7 +11,7 @@ import java.util.*
 class MainActivity : AppCompatActivity() {
     private lateinit var binding : ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
-        var result: Boolean = false
+        var result = false
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
             when (it.itemId) {
                 R.id.bottom_nav_clock -> setCurrentFragment(stopwatchFragment)
                 R.id.bottom_nav_timer -> {
-                    if(result == false) {
+                    if(!result) {
                         setCurrentFragment(timerGetDataFragment)
                     } else {
                         setCurrentFragment(timerFragment)
